@@ -127,8 +127,8 @@ y_test = tf.keras.utils.to_categorical(y_test)
 # Leverage transfer learning for feature extraction dataset.
 effnet = EfficientNetB0(weights="imagenet",include_top=False,input_shape=(150,150,3))
 # Save the effnet model to device
-effnet.save("Effnet_model.h5")
-print("EfficientNetB0 model saved as 'effnet_model.h5' successfully.")
+effnet.save("EfficientNetB0_model.h5")
+print("EfficientNetB0 model saved as 'EfficientNetB0_model.h5' successfully.")
 
 model = effnet.output
 model = tf.keras.layers.GlobalAveragePooling2D()(model)
@@ -139,24 +139,25 @@ model = tf.keras.models.Model(inputs=effnet.input, outputs = model)
 print(model.summary())
 
 # Compile model
+print("\Compiling model...")
 model.compile(loss="categorical_crossentropy",optimizer = "Adam", metrics= ["accuracy"])
 
 # Set up callbacks for training: TensorBoard for logging, 
 # ModelCheckpoint to save the best model, 
 # and ReduceLROnPlateau to adjust learning rate on plateau.
 tensorboard = TensorBoard(log_dir = "logs")
-checkpoint = ModelCheckpoint("effnet.h5", monitor="val_accuracy", save_best_only=True, mode="auto", verbose=1)
-reduce_lr = ReduceLROnPlateau(monitor = "val_accuracy", factor = 0.3, patience = 2, min_delta = 0.002,
+checkpoint = ModelCheckpoint("Brain_cancer_model.h5", monitor="val_accuracy", save_best_only=True, mode="auto", verbose=1)
+reduce_lr = ReduceLROnPlateau(monitor = "val_accuracy", factor = 0.3, patience = 1, min_delta = 0.001,
                               mode="auto",verbose=1)
 
+
 # Model training 
-model= model.fit(X_train,y_train,validation_split=0.1, epochs =12, verbose=1, batch_size=32,
+print("\nTraining model...")
+model= model.fit(X_train,y_train,validation_split=0.1, epochs=15, verbose=1, batch_size=32,
                    callbacks=[tensorboard,checkpoint,reduce_lr])
 
 
 # Plot training & validation accuracy and loss values
-plt.figure(figsize=(12, 5))
-
 # Accuracy plot
 plt.subplot(1, 2, 1)
 plt.plot(model.history["accuracy"], label="Train Accuracy")
@@ -177,3 +178,7 @@ plt.legend()
 
 plt.tight_layout()
 plt.show()
+
+# Save model
+model.save("Brain_cancer_model.h5")
+print("\nModel saved as 'Brain_cancer_model.h5' successfully.")
