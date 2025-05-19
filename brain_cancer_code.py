@@ -16,6 +16,9 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.applications import EfficientNetB0
 from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau, TensorBoard, ModelCheckpoint
 from sklearn.metrics import classification_report,confusion_matrix
+from tensorflow.keras.models import load_model
+import warnings
+warnings.filterwarnings("ignore")
 #import ipywidgets as widgets
 #from IPython.display import display,clear_output
 
@@ -24,7 +27,7 @@ from sklearn.metrics import classification_report,confusion_matrix
 # List for arrays
 X_train = []
 y_train = []
-folders = ["glioma_tumor","no_tumor","meningioma_tumor","pituitary_tumor"]
+folders = ["glioma_tumor", "no_tumor", "meningioma_tumor", "pituitary_tumor"]
 
 
 # Load and append dataset for preprocessing
@@ -128,7 +131,7 @@ y_test = tf.keras.utils.to_categorical(y_test)
 effnet = EfficientNetB0(weights="imagenet",include_top=False,input_shape=(150,150,3))
 # Save the effnet model to device
 effnet.save("EfficientNetB0_model.h5")
-print("EfficientNetB0 model saved as 'EfficientNetB0_model.h5' successfully.")
+print("\nEfficientNetB0 model saved as 'EfficientNetB0_model.h5' successfully.")
 
 model = effnet.output
 model = tf.keras.layers.GlobalAveragePooling2D()(model)
@@ -139,7 +142,7 @@ model = tf.keras.models.Model(inputs=effnet.input, outputs = model)
 print(model.summary())
 
 # Compile model
-print("\Compiling model...")
+print("\nCompiling model...")
 model.compile(loss="categorical_crossentropy",optimizer = "Adam", metrics= ["accuracy"])
 
 # Set up callbacks for training: TensorBoard for logging, 
@@ -179,6 +182,31 @@ plt.legend()
 plt.tight_layout()
 plt.show()
 
-# Save model
-model.save("Brain_cancer_model.h5")
+# Print message showing model has been saved
 print("\nModel saved as 'Brain_cancer_model.h5' successfully.")
+
+# Load model
+model = load_model("Brain_cancer_model.h5")
+
+
+# Plot training & validation accuracy and loss values
+# Accuracy plot
+plt.subplot(1, 2, 1)
+plt.plot(model.history["accuracy"], label="Train Accuracy")
+plt.plot(model.history["val_accuracy"], label="Validation Accuracy")
+plt.title("Model Accuracy")
+plt.xlabel("Epoch")
+plt.ylabel("Accuracy")
+plt.legend()
+
+# Loss plot
+plt.subplot(1, 2, 2)
+plt.plot(model.history["loss"], label="Train Loss")
+plt.plot(model.history["val_loss"], label="Validation Loss")
+plt.title("Model Loss")
+plt.xlabel("Epoch")
+plt.ylabel("Loss")
+plt.legend()
+
+plt.tight_layout()
+plt.show()
