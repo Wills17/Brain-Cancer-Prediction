@@ -50,7 +50,7 @@ for folder in folders:
         
         X_train.append(img)
         y_train.append(folder)
-    print("Appended all images in folder {} successfully.".format(folder))
+    print("Appended all images in {} folder successfully.".format(folder))
     
 print(f"\nAppended all images in the Training folder successfully.")
         
@@ -73,7 +73,7 @@ for folder in folders:
         
         X_train.append(img)
         y_train.append(folder)
-    print("Appended all images folder {} successfully".format(folder))
+    print("Appended all images {} folder successfully".format(folder))
     
 print(f"\nAppended all images in Testing folder successfully.")
         
@@ -150,7 +150,7 @@ model.compile(loss="categorical_crossentropy",optimizer = "Adam", metrics= ["acc
 # and ReduceLROnPlateau to adjust learning rate on plateau.
 tensorboard = TensorBoard(log_dir = "logs")
 checkpoint = ModelCheckpoint("Brain_cancer_model.h5", monitor="val_accuracy", save_best_only=True, mode="auto", verbose=1)
-reduce_lr = ReduceLROnPlateau(monitor = "val_accuracy", factor = 0.3, patience = 1, min_delta = 0.001,
+reduce_lr = ReduceLROnPlateau(monitor = "val_accuracy", factor = 0.3, patience = 2, min_delta = 0.001,
                               mode="auto",verbose=1)
 
 
@@ -185,28 +185,7 @@ plt.show()
 # Print message showing model has been saved
 print("\nModel saved as 'Brain_cancer_model.h5' successfully.")
 
+
 # Load model
 model = load_model("Brain_cancer_model.h5")
 
-
-# Plot training & validation accuracy and loss values
-# Accuracy plot
-plt.subplot(1, 2, 1)
-plt.plot(model.history["accuracy"], label="Train Accuracy")
-plt.plot(model.history["val_accuracy"], label="Validation Accuracy")
-plt.title("Model Accuracy")
-plt.xlabel("Epoch")
-plt.ylabel("Accuracy")
-plt.legend()
-
-# Loss plot
-plt.subplot(1, 2, 2)
-plt.plot(model.history["loss"], label="Train Loss")
-plt.plot(model.history["val_loss"], label="Validation Loss")
-plt.title("Model Loss")
-plt.xlabel("Epoch")
-plt.ylabel("Loss")
-plt.legend()
-
-plt.tight_layout()
-plt.show()
