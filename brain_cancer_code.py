@@ -12,7 +12,6 @@ import tensorflow as tf
 from tqdm import tqdm
 import os
 from sklearn.model_selection import train_test_split
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.applications import EfficientNetB0
 from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau, TensorBoard, ModelCheckpoint
 from sklearn.metrics import classification_report,confusion_matrix
@@ -108,7 +107,6 @@ print("Shape of y_test:", y_test.shape)
 
 # Convert y_train into categorical (numerical) value
 new_y_train = []
-
 for folder in y_train:
     new_y_train.append(folders.index(folder))
 y_train = new_y_train
@@ -116,10 +114,10 @@ y_train = tf.keras.utils.to_categorical(y_train)
 # print("y_train:", y_train)
 
 
-y_test_new = []
+new_y_test = []
 for i in y_test:
-    y_test_new.append(folders.index(folder))
-y_test = y_test_new
+    new_y_test.append(folders.index(folder))
+y_test = new_y_test
 y_test = tf.keras.utils.to_categorical(y_test)
 # print("y_test:", y_test)
 
@@ -166,7 +164,7 @@ plt.subplot(1, 2, 1)
 plt.plot(model.history["accuracy"], label="Train Accuracy")
 plt.plot(model.history["val_accuracy"], label="Validation Accuracy")
 plt.title("Model Accuracy")
-plt.xlabel("Epoch")
+plt.xlabel("Number of Epochs")
 plt.ylabel("Accuracy")
 plt.legend()
 
@@ -175,17 +173,24 @@ plt.subplot(1, 2, 2)
 plt.plot(model.history["loss"], label="Train Loss")
 plt.plot(model.history["val_loss"], label="Validation Loss")
 plt.title("Model Loss")
-plt.xlabel("Epoch")
+plt.xlabel("Number of Epochs")
 plt.ylabel("Loss")
 plt.legend()
 
 plt.tight_layout()
 plt.show()
 
+
 # Print message showing model has been saved
 print("\nModel saved as 'Brain_cancer_model.h5' successfully.")
 
 
-# Load model
-model = load_model("Brain_cancer_model.h5")
+# Make predictions
+print("Test predictions...")
+prediction = model.predict(X_test)
+prediction = np.argmax(prediction, axis=1)
+new_y_test = np.argmax(y_test, axis=1)
+
+# Evaluate model
+print("Classification Report:", classification_report(new_y_test,prediction))
 
