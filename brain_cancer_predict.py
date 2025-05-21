@@ -48,11 +48,28 @@ image = cv.cvtColor(image, cv.COLOR_RGB2BGR)
 image = image.reshape(1,150,150,3)
 
 
-# Load model
-model = load_model("Models/Brain_cancer_model.h5") 
-print("\nModel loaded successfully.")
 
+# === STEP 1: Use MRI Classifier to check if this is a brain MRI ===
+print("\nChecking if uploaded image is a brain MRI...")
 
+try:
+    mri_classifier = load_model("Models/Is_MRI_Classifier.h5")
+    mri_pred = mri_classifier.predict(image)
+    mri_class = np.argmax(mri_pred, axis=1)[0]
+except Exception as e:
+    print("Error loading or using MRI classifier:", str(e))
+    mri_class = -1
+
+if mri_class != 1:
+    print("⚠️ The uploaded image is not recognized as a brain MRI. Aborting prediction.")
+else:
+    print("✅ Image verified as brain MRI. Proceeding with tumor prediction...")
+
+    # === STEP 2: Load Tumor Classifier and Predict ===
+    model = load_model("Models/Brain_cancer_model.h5")
+    print("\nModel loaded successfully.")
+
+model = load_model("Models/Brain_cancer_model.h5")
 
 # Make predictions
 print("Predicting image...")
@@ -73,18 +90,3 @@ else:
 # Display prediction
 if pred != 1:
     print(f"The Model predicts that it is an image with {pred}.")
-
-
-    # Optional: Add a simple check to detect if the image is likely not a brain MRI
-    # For example, check if the image is grayscale (most MRIs are), or use a pre-trained classifier for out-of-distribution detection
-
-    def is_likely_brain_mri(img):
-        # Simple heuristic: check if image is mostly grayscale
-        gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-        diff = cv.absdiff(img[:,:,0], gray)
-        if np.mean(diff) < 10:  # Threshold can be tuned
-            return True
-        return False
-
-    if not is_likely_brain_mri(cv.imread(new_image_path)):
-        print("Warning: The uploaded image does not appear to be a brain MRI. Prediction may be invalid.")
