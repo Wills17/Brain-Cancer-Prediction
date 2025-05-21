@@ -83,8 +83,3 @@ python app.py
 
 - The model uses EfficientNetB0 as a feature extractor.
 - Make sure the `Models/Brain_cancer_model.h5` file exists before running prediction scripts or the web app.
-- HTML templates (`index.html`, `result.html`) are required for the Flask app to function fully.
-
-## License
-
-This project is for educational purposes.
