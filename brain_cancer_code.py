@@ -128,7 +128,7 @@ y_test = tf.keras.utils.to_categorical(y_test)
 # Leverage transfer learning for feature extraction dataset.
 effnet = EfficientNetB0(weights="imagenet",include_top=False,input_shape=(150,150,3))
 # Save the effnet model to device
-effnet.save("EfficientNetB0_model.h5")
+effnet.save("Models/EfficientNetB0_model.h5")
 print("\nEfficientNetB0 model saved as 'EfficientNetB0_model.h5' successfully.")
 
 model = effnet.output
@@ -193,4 +193,4 @@ new_y_test = np.argmax(y_test, axis=1)
 
 # Evaluate model
 print("Classification Report:", classification_report(new_y_test,prediction))
-
+print("Confusion Matrix:", confusion_matrix(new_y_test,prediction))
