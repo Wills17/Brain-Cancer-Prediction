@@ -115,7 +115,7 @@ y_train = tf.keras.utils.to_categorical(y_train)
 
 
 new_y_test = []
-for i in y_test:
+for folder in y_test:
     new_y_test.append(folders.index(folder))
 y_test = new_y_test
 y_test = tf.keras.utils.to_categorical(y_test)
@@ -146,23 +146,23 @@ model.compile(loss="categorical_crossentropy",optimizer = "Adam", metrics= ["acc
 # Set up callbacks for training: TensorBoard for logging, 
 # ModelCheckpoint to save the best model, 
 # and ReduceLROnPlateau to adjust learning rate on plateau.
-tensorboard = TensorBoard(log_dir = "logs")
-checkpoint = ModelCheckpoint("Brain_cancer_model.h5", monitor="val_accuracy", save_best_only=True, mode="auto", verbose=1)
+tensorboard = TensorBoard(log_dir = "Models/logs")
+checkpoint = ModelCheckpoint("Models/Brain_cancer_model.h5", monitor="val_accuracy", save_best_only=True, mode="auto", verbose=1)
 reduce_lr = ReduceLROnPlateau(monitor = "val_accuracy", factor = 0.3, patience = 2, min_delta = 0.001,
-                              mode="auto",verbose=1)
+                              mode="auto", verbose=1)
 
 
 # Model training 
 print("\nTraining model...")
-model= model.fit(X_train,y_train,validation_split=0.1, epochs=15, verbose=1, batch_size=32,
+Model = model.fit(X_train,y_train,validation_split=0.1, epochs=15, verbose=1, batch_size=32,
                    callbacks=[tensorboard,checkpoint,reduce_lr])
 
 
 # Plot training & validation accuracy and loss values
 # Accuracy plot
 plt.subplot(1, 2, 1)
-plt.plot(model.history["accuracy"], label="Train Accuracy")
-plt.plot(model.history["val_accuracy"], label="Validation Accuracy")
+plt.plot(Model.history["accuracy"], label="Train Accuracy")
+plt.plot(Model.history["val_accuracy"], label="Validation Accuracy")
 plt.title("Model Accuracy")
 plt.xlabel("Number of Epochs")
 plt.ylabel("Accuracy")
@@ -170,29 +170,28 @@ plt.legend()
 
 # Loss plot
 plt.subplot(1, 2, 2)
-plt.plot(model.history["loss"], label="Train Loss")
-plt.plot(model.history["val_loss"], label="Validation Loss")
+plt.plot(Model.history["loss"], label="Train Loss")
+plt.plot(Model.history["val_loss"], label="Validation Loss")
 plt.title("Model Loss")
 plt.xlabel("Number of Epochs")
 plt.ylabel("Loss")
 plt.legend()
-
 plt.tight_layout()
 plt.show()
 
 
-# Print message showing model has been saved
+# Save the model
+model.save("Models/Brain_cancer_model.h5")
 print("\nModel saved as 'Brain_cancer_model.h5' successfully.")
 
-
 # Make predictions
-print("Test predictions...")
+print("\nTest predictions...")
 prediction = model.predict(X_test)
 prediction = np.argmax(prediction, axis=1)
 new_y_test = np.argmax(y_test, axis=1)
 
-# Evaluate model
-print("Classification Report:", classification_report(new_y_test,prediction))
-print("Confusion Matrix:", confusion_matrix(new_y_test,prediction))
+# Evaluate Model
+print("Classification Report:\n", classification_report(new_y_test,prediction))
+print("Confusion Matrix:\n", confusion_matrix(new_y_test,prediction))
 
 # End
