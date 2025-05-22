@@ -141,7 +141,7 @@ print(model.summary())
 
 # Compile model
 print("\nCompiling model...")
-model.compile(loss="categorical_crossentropy",optimizer = "Adam", metrics= ["accuracy"])
+model.compile(loss="categorical_crossentropy", optimizer = "Adam", metrics= ["accuracy"])
 
 # Set up callbacks for training: TensorBoard for logging, 
 # ModelCheckpoint to save the best model, 
