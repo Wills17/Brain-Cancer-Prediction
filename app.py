@@ -1,11 +1,12 @@
+# Import neccessary libraries
 from flask import Flask, render_template, request, redirect, url_for
 import os
 import numpy as np
 import cv2 as cv
 from tensorflow.keras.models import load_model
 from werkzeug.utils import secure_filename
-import time 
 
+# Build Flask app
 app = Flask(__name__)
 
 app.config["UPLOAD_FOLDER"] = "User_Upload"
@@ -61,9 +62,4 @@ if __name__ == "__main__":
     app.run(debug=True)
 
 
-
-"""
-Create the HTML templates, index.html and result.html.
-        Will do this later sha.
-
-"""
+# End
