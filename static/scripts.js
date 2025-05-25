@@ -202,3 +202,30 @@ function loadResults() {
     if (resultsCard) resultsCard.style.display = 'none';
   }
 
+  if (startOverBtn) {
+    startOverBtn.addEventListener('click', function () {
+      localStorage.removeItem('brainScanResult');
+    });
+  }
+
+  if (downloadReportBtn) {
+    downloadReportBtn.addEventListener('click', function () {
+      const stored = localStorage.getItem('brainScanResult');
+      if (!stored) return;
+
+      const result = JSON.parse(stored);
+      const report = `
+        Brain Scan Report
+        -----------------
+        Prediction: ${result.prediction}
+        Description: ${result.description}
+      `;
+
+      const blob = new Blob([report], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'brain_scan_report.txt';
+      link.click();
+    }); // ← Implemented report download using Blob
+  }
+}
