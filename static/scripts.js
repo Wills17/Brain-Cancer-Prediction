@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function () {
   // ======================= THEME TOGGLING =======================
   const themeToggle = document.getElementById('theme-toggle');
@@ -135,7 +134,7 @@ function initPredictPage() {
           description: randomPrediction.description
         }));
 
-        window.location.href = 'results.html';
+        window.location.href = "{{ url_for('results') }}";
       }, 2000);
     });
   }
