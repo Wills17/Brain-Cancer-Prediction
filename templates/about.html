@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light-mode">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About - BrainScan AI</title>
+    <meta name="description" content="About BrainScan AI and our technology" />
+    <meta name="author" content="BrainScan AI" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <a href="index.html" class="logo-link">
+            <div class="logo">
+              <span>B</span>
+            </div>
+            <h1>BrainScan AI</h1>
+          </a>
+          <nav>
+            <ul>
+              <li><a href="{{ url_for('home') }}">Home</a></li>
+              <li><a href="{{ url_for('predict') }}">Predict</a></li>
+              <li><a href="{{ url_for('about') }}" class="active">About</a></li>
+              <li><a href="mailto:williamsodunayo70@gmail.com" class="contact-btn">Contact</a></li>
+            </ul>
+          </nav>
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon sun-icon">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon moon-icon">
+              <path d="M21 12.79A9 9 0 100-16 8 8 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+    
+    <div class="bg-gradient-to-b from-medical/5 to-transparent py-16 md:py-24">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h1 class="text-3xl md:text-4xl font-bold text-center text-gray-400 mb-4">
+            About BrainScan AI
+          </h1>
+          <p class="text-xl text-center text-gray-300">
+            Advancing brain tumor detection through artificial intelligence
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <div class="container mx-auto px-4 py-12">
+        <div class="max-w-3xl mx-auto">
+          <div class="prose prose-lg max-w-none">
+            <h2>Our Mission</h2>
+            <p>
+              At BrainScan AI, we're dedicated to improving the accuracy and speed of brain tumor detection through advanced 
+              machine learning technologies. Our goal is to provide healthcare professionals with powerful tools that assist in 
+              early diagnosis, leading to better patient outcomes.
+            </p>
+
+            <h2>The Technology</h2>
+            <p>
+              Our brain tumor detection system utilizes a convolutional neural network (CNN) trained on thousands of MRI scans. 
+              The model can identify four categories with high precision:
+            </p>
+            <ul>
+              <li><span class="font-semibold text-glioma">Glioma Tumors</span></li>
+              <li><span class="font-semibold text-meningioma">Meningioma Tumors</span></li>
+              <li><span class="font-semibold text-pituitary">Pituitary Tumors</span></li>
+              <li><span class="font-semibold text-healthy">No Tumor</span> (healthy brain scans)</li>
+            </ul>
+
+            <p>
+              The model achieves an accuracy rate of over 98% in controlled testing environments, comparing favorably to 
+              the diagnostic accuracy of experienced radiologists.
+            </p>
+
+            <hr class="my-8 border-t border-gray-200">
+
+            <h2>Research Background</h2>
+            <p>
+              Our technology is built upon research in medical imaging analysis using deep learning techniques. The CNN architecture 
+              was developed specifically for MRI scan analysis, with attention to the unique characteristics of brain tissue and tumor manifestations.
+            </p>
+            <p>
+              The training dataset includes diverse patient demographics and varying tumor sizes, locations, and stages to ensure robust performance 
+              across real-world clinical scenarios.
+            </p>
+
+            <h2 id="data-privacy">Data Privacy</h2>
+            <p>
+              We take data privacy extremely seriously. All images uploaded to our system are:
+            </p>
+            <ul>
+              <li>Processed entirely on secure servers</li>
+              <li>Never stored beyond the analysis period</li>
+              <li>Not used for further model training without explicit consent</li>
+              <li>Protected with encryption standards</li>
+            </ul>
+
+            <hr class="my-8 border-t border-gray-200">
+
+            <h2>Medical Disclaimer</h2>
+            <p>
+              BrainScan AI is designed to be a diagnostic aid for healthcare professionals, not a replacement for professional 
+              medical judgment. All analysis results should be reviewed and confirmed by qualified medical personnel before making 
+              clinical decisions.
+            </p>
+
+            <h2>Our Team</h2>
+            <p>
+              Our interdisciplinary team brings together expertise in neurology, radiology, machine learning, and software development. 
+              With backgrounds from leading medical institutions and technology companies, we're committed to creating tools that make 
+              a meaningful difference in patient care.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container mx-auto px-4 py-12">
+        <div class="max-w-3xl mx-auto text-center">
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-400 mb-6">
+            Contact Us
+          </h2>
+          <p class="text-gray-300 mb-8">
+            Have questions about our technology or interested in partnership opportunities? 
+            We'd love to hear from you.
+          </p>
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="mailto:williamsodunayo70@gmail.com" class="inline-flex items-center justify-center gap-2 bg-medical text-white px-6 py-3 rounded-lg hover:bg-medical-dark transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+              </svg>
+              Email Us
+            </a>
+            <a href="mailto:williamsodunayo70@gmail.com" class="inline-flex items-center justify-center gap-2 bg-white border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 .5.5 0 011 0 3 3 0 01-3 3 3 3 0 01-3-3V7.5a.5.5 0 011 0V8a2 2 0 002 0 .5.5 0 011 0 3 3 0 01-3 3 2.5 2.5 0 01-2.5-2.5 2.5 2.5 0 013.5-2.291c.047.2.057.4.07.058l-.005-.007a4.002 4.002 0 01-3.658 1.766c-.202 0-.4-.03-.59-.086z" clip-rule="evenodd" />
+              </svg>
+              Schedule a Demo
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-info">
+            <h3>BrainScan AI</h3>
+            <p>Advanced brain tumor detection powered by artificial intelligence. Helping medical professionals make more accurate diagnoses.</p>
+          </div>
+
+          <div class="footer-links">
+            <div class="footer-column">
+              <h4>Resources</h4>
+              <ul>
+                <li><a href="https://github.com/Wills17/Brain-Cancer-Prediction" class="story-link">Documentation</a></li>
+                <li><a href="#" class="story-link">Research Paper</a></li>
+              </ul>
+            </div>
+            <div class="footer-column">
+              <h4>Company</h4>
+              <ul>/about#data-privacy
+                <li><a href="#" class="story-link">About Us</a></li>
+                <li><a href="#data-privacy" class="story-link">Privacy Policy</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2025 BrainScan AI. All rights reserved.</p>
+          <div class="social-links">
+            <a href="https://x.com/Wills_Python" class="social-icon">
+              <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+              </svg>
+            </a>
+            <a href="https://github.com/Wills17" class="social-icon">
+              <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>
