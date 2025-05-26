@@ -112,30 +112,39 @@ function initPredictPage() {
 
   if (analyzeBtn) {
     analyzeBtn.addEventListener('click', function () {
-      if (analyzeBtn.disabled) return; // ← Prevent double click
+      if (analyzeBtn.disabled) return;
       analyzeBtn.textContent = 'Analyzing...';
       analyzeBtn.disabled = true;
 
-      setTimeout(() => {
-        const imageUrl = largePreviewImg.src;
-        const predictions = [
-          { text: "Glioma Tumor", class: "glioma", description: "Glioma tumors form in the glial cells of the brain or spinal cord." },
-          { text: "No Tumor", class: "healthy", description: "No tumor was detected in the brain scan." },
-          { text: "Meningioma Tumor", class: "meningioma", description: "Meningioma tumors develop from the meninges, the membranes that surround the brain and spinal cord." },
-          { text: "Pituitary Tumor", class: "pituitary", description: "Pituitary tumors form in the pituitary gland at the base of the brain." }
-        ];
+      // Prepare the image file for upload
+      const file = fileInput.files[0];
+      if (!file) {
+        alert('No file selected.');
+        return;
+      }
 
-        const randomPrediction = predictions[Math.floor(Math.random() * predictions.length)];
+      const formData = new FormData();
+      formData.append('file', file);
 
-        localStorage.setItem('brainScanResult', JSON.stringify({
-          prediction: randomPrediction.text,
-          predictionClass: randomPrediction.class,
-          imageUrl: imageUrl,
-          description: randomPrediction.description
-        }));
-
-        window.location.href = "/results";
-      }, 2000);
+      fetch('/predict', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.json())
+        .then(result => {
+          localStorage.setItem('brainScanResult', JSON.stringify({
+            prediction: result.prediction,
+            predictionClass: result.predictionClass,
+            imageUrl: largePreviewImg.src,
+            description: result.description
+          }));
+          window.location.href = "/results";
+        })
+        .catch(error => {
+          alert('Prediction failed: ' + error);
+          analyzeBtn.textContent = 'Analyze';
+          analyzeBtn.disabled = false;
+        });
     });
   }
 
