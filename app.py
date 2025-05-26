@@ -1,13 +1,16 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+# Import neccessary libraries
+
 import os
 import requests
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 # External prediction API endpoint (Replace with your actual Render API endpoint)
-RENDER_API_URL = 'https://brain-cancer-api.onrender.com/predict'
+RENDER_API_URL = 'https://brain-cancer-prediction-upjo.onrender.com/predict'
+
 
 # Initialize Flask application
 app = Flask(__name__, static_folder='static', template_folder='templates')
@@ -57,7 +60,7 @@ def predict():
                 except Exception as e:
                     return render_template('results.html', error=str(e), image_url=filepath)
         else:
-            return render_template('predict.html', error="Invalid file type. Please upload a PNG or JPG.")
+            return render_template('predict.html', error="Invalid file type. Please upload a JPEG, PNG or JPG file format.")
     return render_template('predict.html')
 
 
