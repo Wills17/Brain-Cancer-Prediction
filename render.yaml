@@ -3,5 +3,5 @@ services:
     name: brain-cancer-api
     env: python
     plan: free
-    buildCommand: ""
-    startCommand: gunicorn Application:app
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn render:app
