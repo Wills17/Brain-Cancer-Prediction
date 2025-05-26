@@ -134,7 +134,7 @@ function initPredictPage() {
           description: randomPrediction.description
         }));
 
-        window.location.href = "{{ url_for('results') }}";
+        window.location.href = "/results";
       }, 2000);
     });
   }
