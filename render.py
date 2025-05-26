@@ -18,7 +18,8 @@ print("Models folder:", os.listdir("Models"))
 
 # Load model on startup
 try:
-    model = load_model("Models/Brain_cancer_model.h5")
+    model_path = os.path.join(os.path.dirname(__file__), "Models", "Brain_cancer_model.h5")
+    model = load_model(model_path)
 except Exception as e:
     print("Error loading model:", e)
     raise
