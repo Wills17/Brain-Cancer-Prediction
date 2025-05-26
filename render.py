@@ -17,7 +17,11 @@ print("Models folder:", os.listdir("Models"))
 
 
 # Load model on startup
-model = load_model("Models/Brain_cancer_model.h5")
+try:
+    model = load_model("Models/Brain_cancer_model.h5")
+except Exception as e:
+    print("Error loading model:", e)
+    raise
 
 # Preprocessing image
 def preprocess_image(img):
