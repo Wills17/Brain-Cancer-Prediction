@@ -51,7 +51,7 @@ def predict():
         # Ask user for confirmation
         user_input = input("\nIs this a brain MRI image? (yes/no): ").strip().lower()
         if user_input not in ['yes', 'y']:
-            print("Prediction aborted. Please upload a valid brain MRI image.")
+            print("Prediction aborted. Set folder to valid brain MRI image folder.")
             exit()
 
         # Convert into numpy array
