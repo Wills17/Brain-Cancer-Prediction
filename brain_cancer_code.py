@@ -13,14 +13,8 @@ from tqdm import tqdm
 import os
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.applications import EfficientNetB0
-from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau, TensorBoard, ModelCheckpoint
+from tensorflow.keras.callbacks import ReduceLROnPlateau, TensorBoard, ModelCheckpoint
 from sklearn.metrics import classification_report,confusion_matrix
-from tensorflow.keras.models import load_model
-import warnings
-warnings.filterwarnings("ignore")
-#import ipywidgets as widgets
-#from IPython.display import display,clear_output
-
 
 
 # List for arrays
@@ -53,7 +47,7 @@ for folder in folders:
     
 print(f"\nAppended all images in the Training folder successfully.")
         
-#Test folder
+# Test folder
 for folder in folders:
     train_path = "Dataset/Testing/" + folder
     print("\nCurrent folder:", folder)

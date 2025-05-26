@@ -7,7 +7,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 
 
-app = Flask(__name__)
+api_app = Flask(__name__)
 
 # for debugging purpose
 import os
@@ -32,7 +32,7 @@ def preprocess_image(img):
     return img_array
 
 # Predict route
-@app.route('/predict', methods=['POST'])
+@api_app.route('/predict', methods=['POST'])
 def predict():
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'}), 400
@@ -62,9 +62,9 @@ def predict():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/')
+@api_app.route('/')
 def index():
     return "Brain Cancer Prediction API is running."
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    api_app.run(debug=True)
