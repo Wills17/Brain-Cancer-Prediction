@@ -9,7 +9,14 @@ from tensorflow.keras.preprocessing import image
 
 app = Flask(__name__)
 
-# # Load model on startup
+# for debugging purpose
+import os
+print("Current working directory:", os.getcwd())
+print("Files:", os.listdir())
+print("Models folder:", os.listdir("Models"))
+
+
+# Load model on startup
 model = load_model("Models/Brain_cancer_model.h5")
 
 # Preprocessing image
