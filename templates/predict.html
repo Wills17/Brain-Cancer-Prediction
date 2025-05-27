@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light-mode">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Predict - BrainScan AI</title>
+    <meta name="description" content="Upload your MRI scan for brain tumor detection" />
+    <meta name="author" content="BrainScan AI" />
+    <link rel="stylesheet" href="styles.css">
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <a href="index.html" class="logo-link">
+            <div class="logo">
+              <span>B</span>
+            </div>
+            <h1>BrainScan AI</h1>
+          </a>
+          <nav>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="predict.html" class="active">Predict</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="#" class="contact-btn">Contact</a></li>
+            </ul>
+          </nav>
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon sun-icon">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon moon-icon">
+              <path d="M21 12.79A9 9 0 100-16 8 8 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+    
+    <main>
+      <div class="container">
+        <div class="max-w-4xl mx-auto">
+          <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">
+              Upload Brain MRI Scan
+            </h1>
+            <p class="text-gray-600">
+              Upload your MRI scan image for analysis by our AI model
+            </p>
+          </div>
+
+          <div class="shadow-lg bg-white rounded-lg border border-gray-200">
+            <div class="p-6">
+              <div class="tab-headers">
+                <button class="tab-btn active" data-tab="upload">Upload Scan</button>
+                <button class="tab-btn" data-tab="camera">Use Camera</button>
+              </div>
+              
+              <div class="tab-content active" id="upload-tab">
+                <div class="file-upload">
+                  <div class="upload-container" id="upload-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                    </svg>
+                    <h3>Drag & drop your file here</h3>
+                    <p>or</p>
+                    <label for="file-input" class="file-input-label">Browse Files</label>
+                    <input type="file" id="file-input" accept="image/*" style="display: none;" />
+                  </div>
+                  <div class="file-info" id="file-info" style="display: none;">
+                    <div class="file-preview">
+                      <img id="file-preview-image" src="#" alt="File preview" />
+                    </div>
+                    <div class="file-details">
+                      <h4 id="file-name">filename.jpg</h4>
+                      <p id="file-size">1.2 MB</p>
+                      <button id="remove-file" class="remove-btn">Remove</button>
+                    </div>
+                  </div>
+                </div>
+                
+                <div id="confirmation-prompt" class="confirmation-prompt" style="display: none;">
+                  <div class="confirmation-content">
+                    <h3>Confirm Image Type</h3>
+                    <p>Is this a brain MRI scan image? Our AI model is specifically trained on brain MRI scans. Using other types of images may lead to inaccurate results.</p>
+                    <div class="confirmation-actions">
+                      <button id="confirm-no" class="secondary-btn">No, Let Me Change</button>
+                      <button id="confirm-yes" class="primary-btn">Yes, Continue</button>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="preview-section" id="preview-section" style="display: none;">
+                  <h3>Image Preview</h3>
+                  <div class="large-preview">
+                    <img id="large-preview-image" src="#" alt="Large preview" />
+                  </div>
+                </div>
+                
+                <div class="upload-actions">
+                  <button id="analyze-btn" class="primary-btn" disabled>Analyze Brain Scan</button>
+                </div>
+              </div>
+              
+              <div class="tab-content" id="camera-tab">
+                <div class="camera-placeholder">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <h3>Camera Access Coming Soon</h3>
+                  <p>In a future update, you'll be able to take pictures of printed MRI scans directly.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-info">
+            <h3>BrainScan AI</h3>
+            <p>Advanced brain tumor detection powered by artificial intelligence. Helping medical professionals make more accurate diagnoses.</p>
+          </div>
+
+          <div class="footer-links">
+            <div class="footer-column">
+              <h4>Resources</h4>
+              <ul>
+                <li><a href="#" class="story-link">Documentation</a></li>
+                <li><a href="#" class="story-link">Research Paper</a></li>
+                <li><a href="#" class="story-link">API Reference</a></li>
+              </ul>
+            </div>
+            <div class="footer-column">
+              <h4>Company</h4>
+              <ul>
+                <li><a href="about.html" class="story-link">About Us</a></li>
+                <li><a href="#" class="story-link">Contact</a></li>
+                <li><a href="#" class="story-link">Privacy Policy</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2025 BrainScan AI. All rights reserved.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon">
+              <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+              </svg>
+            </a>
+            <a href="#" class="social-icon">
+              <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+  </body>
+</html>
