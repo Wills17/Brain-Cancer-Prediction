@@ -1,5 +1,0 @@
-Flask
-tensorflow
-numpy
-gunicorn
-Pillow

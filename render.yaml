@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: brain-cancer-api
-    env: python
-    plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn render:api_app 
