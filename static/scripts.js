@@ -125,7 +125,7 @@ function initPredictPage() {
 
       const formData = new FormData();
       formData.append('file', file);
-
+      
       fetch('/predict', {
         method: 'POST',
         body: formData
