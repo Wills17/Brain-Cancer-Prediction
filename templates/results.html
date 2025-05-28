@@ -41,7 +41,8 @@
               <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
             </svg>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon moon-icon">
-              <path d="M21 12.79A9 9 0 100-16 8 8 0 0 0 21 12.79z"></path>
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+
             </svg>
           </button>
         </div>
@@ -52,8 +53,8 @@
       <div class="container mx-auto px-4 py-12">
         <div class="max-w-5xl mx-auto">
           <div class="mb-8">
-            <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Analysis Results</h1>
-            <p class="text-gray-600">
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-400 mb-2">Analysis Results</h1>
+            <p class="text-gray-500">
               Our AI model has analyzed your brain scan and provided the following results.
             </p>
           </div>
@@ -76,11 +77,11 @@
               <div class="result-content">
                 <div class="result-item">
                   <p class="result-label">Diagnosis</p>
-                  <h3 id="result-prediction" class="result-value">{{ result.prediction if result else 'No Tumor' }}</h3>
+                  <h3 id="result-prediction" class="result-value"></h3>
                 </div>
                 <div class="result-item">
                   <p class="result-label">Description</p>
-                  <p id="result-description" class="result-text">{{ result.description if result else 'No tumor was detected in the brain scan.' }}</p>
+                  <p id="result-description" class="result-text"></p>
                 </div>
                 <div class="result-disclaimer">
                   <p>This is an AI-assisted analysis and should not replace professional medical advice.
@@ -122,7 +123,7 @@
             <div class="footer-column">
               <h4>Company</h4>
               <ul>
-                <li><a href="#" class="story-link">About Us</a></li>
+                <li><a href="{{ url_for ('about') }}" class="story-link">About Us</a></li>
                 <li><a href="#data-privacy" class="story-link">Privacy Policy</a></li>
               </ul>
             </div>
