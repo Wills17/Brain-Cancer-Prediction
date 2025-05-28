@@ -903,6 +903,22 @@ nav a.active::after {
   transition: color 0.3s ease;
 }
 
+.result-text.glioma {
+  color: var(--glioma);
+}
+
+.result-text.meningioma {
+  color: var(--meningioma);
+}
+
+.result-text.pituitary {
+  color: var(--pituitary);
+}
+
+.result-text.healthy {
+  color: var(--healthy);
+}
+
 .result-disclaimer {
   font-size: 0.75rem;
   font-style: italic;
