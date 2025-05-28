@@ -52,8 +52,10 @@ def predict():
             try:
                 
                 # Run actual model prediction
-                img = Image.open(filepath).resize((150, 150))
-                image = cv.cvtColor(img, cv.COLOR_RGB2BGR)
+                img = Image.open(filepath).resize((150, 150)).convert('RGB')
+                # Convert image to numpy array and preprocess
+                image = np.array(img)
+                image = cv.cvtColor(image, cv.COLOR_RGB2BGR)
                 image = image.reshape(1, 150,150, 3)
                 
                 # Predict using model
@@ -70,24 +72,25 @@ def predict():
                     
 
                 
-                prediction = labels.get(pred_class, "Unknown")
-                predictionClass = "danger" if pred_class != 1 else "healthy"
-                description = (
-                    f"The scan indicates presence of a {label.lower()}." if pred_class != 1
-                else "No tumor was detected in the brain scan.")
+                prediction = labels.get(pred_class, "")
+                if pred_class != 1:
+                    predictionClass = "Danger"  
+                else:
+                    "Healthy"
+                    
+                if pred_class != 1:
+                    description = "The scan indicates presence of a {}.".format(prediction.lower())
+                else:
+                    description= "No tumor was detected in the brain scan."
                     
                 result = {
                     "prediction": prediction,
                     "predictionClass": predictionClass,
-                    "description": description
+                    "description": description,
+                    "image_url": url_for('static', filename='uploads/' + filename)
                 }
                 
-                
                 return jsonify(result)
-
-                # # Or render to HTML page
-                # return render_template('results.html', result=result, image_url=filepath)
-
 
             except Exception as e:
                 return jsonify({"error": str(e)}), 500
@@ -101,6 +104,7 @@ def predict():
 @app.route('/results', methods=['GET'])
 def results():
     return render_template('results.html')
+
 
 # Delete last uploaded file
 @app.after_request
@@ -118,5 +122,6 @@ def remove_uploaded_file(response):
         pass
     return response
 
+
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True)
