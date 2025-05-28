@@ -52,7 +52,8 @@ def predict():
             try:
                 
                 # Run actual model prediction
-                img = Image.open(filepath).resize((150, 150)).convert('RGB')
+                img = Image.open(filepath).resize((150, 150))
+                img = img.convert('RGB')
                 # Convert image to numpy array and preprocess
                 image = np.array(img)
                 image = cv.cvtColor(image, cv.COLOR_RGB2BGR)
@@ -69,15 +70,23 @@ def predict():
                     2: "Meningioma Tumor",
                     3: "Pituitary Tumor"
                 }
-                    
-
+               
                 
                 prediction = labels.get(pred_class, "")
+                print("Prediction:", prediction)
+                
+                # For classification in JS
+                label = ["glioma", "healthy", "meningioma", "pituitary"]
+
+                
                 if pred_class != 1:
-                    predictionClass = "Danger"  
+                    predictionClass = label[pred_class] 
                 else:
-                    "Healthy"
-                    
+                    predictionClass = "healthy"
+                
+                print("PredictionClass:", predictionClass)
+                
+                
                 if pred_class != 1:
                     description = "The scan indicates presence of a {}.".format(prediction.lower())
                 else:
