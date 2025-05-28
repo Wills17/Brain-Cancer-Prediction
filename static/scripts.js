@@ -112,9 +112,8 @@ function initPredictPage() {
 
   if (analyzeBtn) {
     analyzeBtn.addEventListener('click', function () {
-      if (analyzeBtn.disabled) return;
-      analyzeBtn.textContent = 'Analyzing...';
-      analyzeBtn.disabled = true;
+      // Display loading overlay
+      document.getElementById('loading-overlay').style.display = 'flex';
 
       // Prepare the image file for upload
       const file = fileInput.files[0];
@@ -132,6 +131,8 @@ function initPredictPage() {
       })
         .then(response => response.json())
         .then(result => {
+          // Hide loading overlay
+          document.getElementById('loading-overlay').style.display = 'none';
           localStorage.setItem('brainScanResult', JSON.stringify({
             prediction: result.prediction,
             predictionClass: result.predictionClass,
@@ -141,6 +142,8 @@ function initPredictPage() {
           window.location.href = "/results";
         })
         .catch(error => {
+          // Hide loading overlay if error
+          document.getElementById('loading-overlay').style.display = 'none';
           alert('Prediction failed: ' + error);
           analyzeBtn.textContent = 'Analyze';
           analyzeBtn.disabled = false;
@@ -200,6 +203,7 @@ function loadResults() {
       resultPrediction.textContent = result.prediction;
       resultPrediction.className = 'result-value ' + result.predictionClass;
     }
+    
     if (resultDescription) resultDescription.textContent = result.description;
     if (resultIndicator) resultIndicator.className = 'result-indicator ' + result.predictionClass;
   
