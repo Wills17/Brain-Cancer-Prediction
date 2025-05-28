@@ -202,6 +202,8 @@ function loadResults() {
     }
     if (resultDescription) resultDescription.textContent = result.description;
     if (resultIndicator) resultIndicator.className = 'result-indicator ' + result.predictionClass;
+  
+    if (resultDescription) resultDescription.className = 'result-text ' + result.predictionClass;  
 
     if (noResults) noResults.style.display = 'none';
     if (resultsCard) resultsCard.style.display = 'grid';
