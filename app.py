@@ -1,16 +1,18 @@
 # Import neccessary libraries
 
 import os
-import requests
+import cv2 as cv
+from PIL import Image
+import numpy as np
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from werkzeug.utils import secure_filename
+from tensorflow.keras.models import load_model
 
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
-# External prediction API endpoint (Replace with your actual Render API endpoint)
-RENDER_API_URL = 'https://brain-cancer-prediction-upjo.onrender.com/predict'
-
+# Load model
+model = load_model("Models/Brain_cancer_model.h5")
 
 # Initialize Flask application
 app = Flask(__name__, static_folder='static', template_folder='templates')
@@ -36,49 +38,85 @@ def about():
     return render_template('about.html')
 
 
-# Predict page (image upload form)
+# Predict page
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
-    if request.method == 'POST':
-        file = request.files.get('image')
+    if request.method == "POST":
+        file = request.files.get('file')  # 'file' not 'image', to match fetch()
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(filepath)
 
-            # Send image to Render API
-            with open(filepath, 'rb') as f:
-                files = {'file': (filename, f, file.content_type)}
-                try:
-                    response = requests.post(RENDER_API_URL, files=files)
-                    if response.status_code == 200:
-                        result = response.json()
-                        return render_template('results.html', result=result, image_url=filepath)
-                    else:
-                        return render_template('results.html', error="Prediction API error", image_url=filepath)
-                except Exception as e:
-                    return render_template('results.html', error=str(e), image_url=filepath)
+            try:
+                
+                # Run actual model prediction
+                img = Image.open(filepath).resize((150, 150))
+                image = cv.cvtColor(img, cv.COLOR_RGB2BGR)
+                image = image.reshape(1, 150,150, 3)
+                
+                # Predict using model
+                pred = model.predict(image)
+                pred_class = np.argmax(pred, axis=1)[0]
+                
+                # Map prediction to class category
+                labels = {
+                    0: "Glioma Tumor",
+                    1: "No Tumor",
+                    2: "Meningioma Tumor",
+                    3: "Pituitary Tumor"
+                }
+                    
+
+                
+                prediction = labels.get(pred_class, "Unknown")
+                predictionClass = "danger" if pred_class != 1 else "healthy"
+                description = (
+                    f"The scan indicates presence of a {label.lower()}." if pred_class != 1
+                else "No tumor was detected in the brain scan.")
+                    
+                result = {
+                    "prediction": prediction,
+                    "predictionClass": predictionClass,
+                    "description": description
+                }
+                
+                
+                return jsonify(result)
+
+                # # Or render to HTML page
+                # return render_template('results.html', result=result, image_url=filepath)
+
+
+            except Exception as e:
+                return jsonify({"error": str(e)}), 500
         else:
-            return render_template('predict.html', error="Invalid file type. Please upload a JPEG, PNG or JPG file format.")
-    return render_template('predict.html')
+            return jsonify({"error": "Invalid file type. Please upload a PNG or JPEG image."}), 400
+    else:
+        return render_template('predict.html')
 
 
-# Results page (uses result passed from predict route)
+# Results page 
 @app.route('/results', methods=['GET'])
 def results():
     return render_template('results.html')
 
-
-# API fallback (optional for local testing)
-@app.route('/api/predict', methods=['POST'])
-def api_predict():
-    return jsonify({
-        "prediction": "No Tumor",
-        "predictionClass": "healthy",
-        "description": "No tumor was detected in the brain scan."
-    })
-
+# Delete last uploaded file
+@app.after_request
+def remove_uploaded_file(response):
+    try:
+    # Only delete file after POST to /predict
+        if request.endpoint == 'predict' and request.method == 'POST':
+            file = request.files.get('file')
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                if os.path.exists(filepath):
+                    os.remove(filepath)
+    except Exception:
+        pass
+    return response
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
