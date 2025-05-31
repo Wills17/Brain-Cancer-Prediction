@@ -7,6 +7,9 @@ import numpy as np
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from werkzeug.utils import secure_filename
 from tensorflow.keras.models import load_model
+import warnings
+warnings.filterwarnings("ignore")
+
 
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -86,11 +89,22 @@ def predict():
                 
                 print("PredictionClass:", predictionClass)
                 
-                
+                # Prepare description based on prediction
                 if pred_class != 1:
-                    description = "The scan indicates presence of a {}.".format(prediction.lower())
+                    description = (
+                        f"Our analysis suggests the presence of a {prediction.lower()} in the brain scan. "
+                        "We recommend consulting a medical professional for a comprehensive diagnosis and further guidance.")
+                    
+                    if pred_class == 0:
+                            description  += " Glioma tumors are a type of tumor that occurs in the brain and spinal cord. "
+                    elif pred_class == 2:
+                            description  += " Meningioma tumors are typically benign tumors that arise from the meninges, the protective membranes covering the brain and spinal cord. "
+                    elif pred_class == 3:
+                            description  += " Pituitary tumors are abnormal growths that develop in the pituitary gland, a small gland located at the base of the brain. "
+                
                 else:
-                    description= "No tumor was detected in the brain scan."
+                    description = "No tumor was detected in the brain scan."
+                    description  += " The brain scan appears to be normal, with no signs of tumors detected."
                     
                 result = {
                     "prediction": prediction,
