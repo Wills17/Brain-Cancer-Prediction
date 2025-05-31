@@ -4,10 +4,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-import time
 import cv2 as cv
-import io
-from PIL import Image
 import tensorflow as tf
 from tqdm import tqdm
 import os
@@ -116,7 +113,6 @@ y_test = tf.keras.utils.to_categorical(y_test)
 # print("y_test:", y_test)
 
 
-
 # Initialize EfficientNetB0 model with pre-trained ImageNet weights, excluding the top classification layer, 
 # and sets the input shape to (150, 150, 3). 
 # Leverage transfer learning for feature extraction dataset.
@@ -178,6 +174,7 @@ plt.show()
 model.save("Models/Brain_cancer_model.h5")
 print("\nModel saved as 'Brain_cancer_model.h5' successfully.")
 
+
 # Make predictions
 print("\nTest predictions...")
 prediction = model.predict(X_test)
@@ -187,5 +184,15 @@ new_y_test = np.argmax(y_test, axis=1)
 # Evaluate Model
 print("Classification Report:\n", classification_report(new_y_test,prediction))
 print("Confusion Matrix:\n", confusion_matrix(new_y_test,prediction))
+
+# Plot Confusion matrix
+plt.figure(figsize=(8,6))
+cm = confusion_matrix(new_y_test, prediction)
+sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=folders, yticklabels=folders)
+plt.xlabel("Predicted Label")
+plt.ylabel("True Label")
+plt.title("Confusion Matrix")
+plt.show()
+
 
 # End
