@@ -174,6 +174,17 @@ plt.show()
 model.save("Models/Brain_cancer_model.h5")
 print("\nModel saved as 'Brain_cancer_model.h5' successfully.")
 
+# Re-save model in tflite format
+model = tf.keras.models.load_model("Models/Brain_cancer_model.h5")
+converter = tf.lite.TFLiteConverter.from_keras_model(model)
+tflite_model = converter.convert()
+
+# Save as TFLite file
+with open("Brain_cancer_model.tflite", "wb") as f:
+    f.write(tflite_model)
+
+print("✅ Conversion complete.")
+
 
 # Make predictions
 print("\nTest predictions...")
