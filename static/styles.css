@@ -1,4 +1,3 @@
-
 /* Base styles */
 :root {
   --medical: #1E88E5;
@@ -1011,6 +1010,7 @@ footer {
 
 .footer-bottom {
   padding: 1.5rem 0;
+  padding: 1.5rem 0;
   border-top: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
@@ -1075,6 +1075,14 @@ footer {
     opacity: 1;
     transform: translateX(0);
   }
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+.spinner svg {
+  animation: spin 1s linear infinite;
 }
 
 .animate-fade-in {
@@ -1351,4 +1359,19 @@ hr {
   .large-preview {
     height: 300px;
   }
+}
+
+#loading-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(255,255,255,0.85);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+#loading-overlay.active {
+  display: flex;
 }
