@@ -5,7 +5,7 @@ from PIL import Image
 import numpy as np
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from werkzeug.utils import secure_filename
-import tensorflow.lite as tflite
+import tflite_runtime.interpreter as tflite
 import warnings
 warnings.filterwarnings("ignore")
 
