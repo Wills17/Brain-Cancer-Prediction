@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: brain-tumor-app
+    name: Brain Cancer Prediction App
     env: python
     buildCommand: pip install -r requirements.txt
     startCommand: python app_r.py
