@@ -1,5 +1,5 @@
 flask
 tflite-runtime
-numpy
+numpy<2.0
 pillow
 opencv-python-headless
