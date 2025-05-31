@@ -1,122 +1,142 @@
-# Brain Cancer Prediction
 
-This project uses deep learning to classify brain MRI images into four categories: Glioma Tumor, Meningioma Tumor, Pituitary Tumor, and No Tumor. It includes model training, prediction scripts, and a modern Flask web application for user-friendly image uploads and instant AI-powered predictions.
+# 🧠 Brain Cancer Prediction with Deep Learning
 
-## Project Structure
+A deep learning-based project that uses MRI images to classify brain scans into one of four categories:
+- **Glioma Tumor**
+- **Meningioma Tumor**
+- **Pituitary Tumor**
+- **No Tumor (Healthy)**
 
-```
-app.py
-app_r.py
-brain_cancer_code.py
-brain_cancer_predict.py
-render.py
-render.yaml
-requirements.txt
-README.md
-Dataset.zip
-Models/
-    Brain_cancer_model.h5
-    Brain_cancer_model.tflite
-static/
-    scripts.js
-    styles.css
-    uploads/
-templates/
-    about.html
-    home.html
-    predict.html
-    results.html
-```
-
-- **app.py**: Main Flask web app for uploading MRI images and displaying predictions using the `.h5` model.
-- **app_r.py**: Alternative Flask app using the TensorFlow Lite (`.tflite`) model for lightweight inference.
-- **brain_cancer_code.py**: Model training and evaluation using EfficientNetB0 and Keras.
-- **brain_cancer_predict.py**: Script for visual/manual prediction from images in the `Dataset/Predict/` folder.
-- **render.py, render.yaml**: Deployment configuration files (e.g., for Render.com).
-- **requirements.txt**: Python dependencies.
-- **Models/**: Stores trained model files and conversion scripts.
-- **static/**: Frontend static files (JS, CSS, uploads).
-- **templates/**: HTML templates for the web interface.
-
-## Getting Started
-
-### Prerequisites
-
-- Python 3.7+
-- TensorFlow
-- Keras
-- OpenCV
-- Flask
-- NumPy
-- Matplotlib
-- scikit-learn
-- tqdm
-- seaborn
-- Pillow
-
-Install dependencies:
-```sh
-pip install -r requirements.txt
-```
-
-### Dataset
-
-Organize your dataset as follows:
-- `Dataset/Training/` — Training images, separated by class folders.
-- `Dataset/Testing/` — Testing images, separated by class folders.
-- `Dataset/Predict/` — Images for prediction.
-
-### Training the Model
-
-To train the model and save it:
-```sh
-python brain_cancer_code.py
-```
-This will preprocess the data, train the model, and save it as `Models/Brain_cancer_model.h5`.
-
-### Model Conversion (Optional)
-
-To convert the trained model to TensorFlow Lite:
-```sh
-python Models/convert.py
-```
-This will generate `Models/Brain_cancer_model.tflite`.
-
-### Making Predictions
-
-#### Visual Prediction Script
-
-To predict a random image from the `Dataset/Predict/` folder:
-```sh
-python brain_cancer_predict.py
-```
-You will be prompted to confirm the image before prediction.
-
-#### Web Application
-
-To run the Flask web app (standard Keras model):
-```sh
-python app.py
-```
-Or to use the TensorFlow Lite version:
-```sh
-python app_r.py
-```
-- Open your browser and go to `http://127.0.0.1:5000/`
-- Upload an MRI image to get a prediction.
-
-## Features
-
-- Drag & drop or browse to upload MRI scans.
-- Instant AI-powered predictions with visual feedback.
-- Downloadable analysis report.
-- Responsive and modern UI.
-- Privacy-focused: images are not stored after analysis.
-
-## Notes
-
-- The model uses EfficientNetB0 as a feature extractor.
-- Make sure the `Models/Brain_cancer_model.h5` (or `.tflite`) file exists before running prediction scripts or the web app.
-- For deployment, see `render.py` and `render.yaml`.
+It includes a trained model, prediction scripts, and a responsive **Flask web application** deployed on [Render](https://brain-cancer-prediction-td8j.onrender.com/).
 
 ---
+
+## 📸 Sample Output
+<table>
+    <tr>
+        <th>Glioma Tumor</th>
+        <th>Meningioma Tumor</th>
+        <th>Pituitary Tumor</th>
+        <th>No Tumor (Healthy)</th>
+    </tr>
+    <tr>
+        <td align="center">
+            <img src="Sample Preview/glioma_tumor(train)_007.jpg" alt="Glioma Tumor" width="100"/><br/>
+            <sub><b>Prediction:</b> Glioma Tumor</sub>
+        </td>
+        <td align="center">
+            <img src="Sample Preview/meningioma_tumor(train)_091.jpg" alt="Meningioma Tumor" width="100"/><br/>
+            <sub><b>Prediction:</b> Meningioma Tumor</sub>
+        </td>
+        <td align="center">
+            <img src="Sample Preview/no_tumor(train)_040.jpg" alt="No Tumor" width="100"/><br/>
+            <sub><b>Prediction:</b> No Tumor</sub>
+        </td>
+        <td align="center">
+            <img src="Sample Preview/pituitary_tumor(train)_210.jpg" alt="Pituitary Tumor" width="100"/><br/>
+            <sub><b>Prediction:</b> Pituitary Tumor</sub>
+        </td>
+    </tr>
+</table>
+
+---
+
+## 🗂 Project Structure
+
+```
+Brain-Cancer-Prediction/
+├── app.py                   # Flask app (local deployment)
+├── app_r.py                 # Flask app (usinfg TFLite)
+├── Models/
+│   ├── Brain_cancer_model.h5      # Keras model
+│   └── Brain_cancer_model.tflite  # Converted TFLite model
+├── templates/               # HTML templates
+├── static/                  # CSS, JS, image uploads
+├── scripts.js               # Frontend interactivity
+├── render.yaml              # Render deployment config
+├── requirements.txt         # Python dependencies
+├── brain_cancer_code.py     # Training script
+├── brain_cancer_predict.py  # Local prediction test script
+└── README.md
+```
+
+---
+
+## 🚀 Demo (Live on Render)
+
+> 🔗 [Live App](https://brain-cancer-prediction-td8j.onrender.com/) 
+
+Upload a brain MRI image and receive a class prediction with a medical-style explanation.
+
+---
+
+## 📊 Dataset
+
+The dataset is structured as follows:
+
+```
+Dataset/
+├── Training/
+├── Testing/
+└── Predict/
+```
+
+MRI scans are sorted into 4 classes in each folder except the `Predict` folder.
+
+
+---
+
+## 🧠 Model Architecture
+
+- Base Model: `EfficientNetB0`
+- Input Shape: `150x150x3`
+- Output: Softmax classification (4 classes)
+- Converted to `.tflite` for lightweight inference
+
+---
+
+## 🔧 Installation (Local)
+
+```bash
+git clone https://github.com/Wills17/Brain-Cancer-Prediction.git
+cd Brain-Cancer-Prediction
+pip install -r requirements.txt
+python app.py
+```
+
+Then open: [http://127.0.0.1:5000](http://127.0.0.1:5000)
+
+---
+
+## 📦 Requirements
+
+```
+flask
+tflite-runtime
+numpy<2.0
+pillow
+opencv-python-headless
+```
+
+---
+
+## ✅ Features
+
+- Drag & drop image uploads
+- Instant AI predictions
+- Theme toggle (light/dark)
+- Downloadable diagnosis report
+- Clean, responsive UI
+
+---
+
+## ⚠ Disclaimer
+
+> This is a research-based prototype. It is not a replacement for professional medical diagnosis. Always consult a medical professional for health-related decisions.
+
+---
+
+## 👨‍💻 Author
+
+**Odunayo Williams**    
+GitHub: [@Wills17](https://github.com/Wills17)
