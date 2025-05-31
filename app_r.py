@@ -16,6 +16,9 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 # Load model
 interpreter = tflite.Interpreter(model_path="Models/Brain_cancer_model.tflite")
 interpreter.allocate_tensors()
+
+print("Model is valid and loaded.")
+# Get input and output details
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
 
