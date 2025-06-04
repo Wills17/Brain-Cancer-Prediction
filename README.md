@@ -16,8 +16,8 @@ It includes a trained model, prediction scripts, and a responsive **Flask web ap
     <tr>
         <th>Glioma Tumor</th>
         <th>Meningioma Tumor</th>
-        <th>Pituitary Tumor</th>
         <th>No Tumor (Healthy)</th>
+        <th>Pituitary Tumor</th>
     </tr>
     <tr>
         <td align="center">
