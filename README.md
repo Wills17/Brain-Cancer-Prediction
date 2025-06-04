@@ -4,8 +4,9 @@
 A deep learning-based project that uses MRI images to classify brain scans into one of four categories:
 - **Glioma Tumor**
 - **Meningioma Tumor**
-- **Pituitary Tumor**
 - **No Tumor (Healthy)**
+- **Pituitary Tumor**
+
 
 It includes a trained model, prediction scripts, and a responsive **Flask web application** deployed on [Render](https://brain-cancer-prediction-td8j.onrender.com/).
 
