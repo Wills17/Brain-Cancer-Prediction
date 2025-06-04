@@ -21,19 +21,19 @@ It includes a trained model, prediction scripts, and a responsive **Flask web ap
     </tr>
     <tr>
         <td align="center">
-            <img src="Sample Preview Images/glioma_tumor(train)_007.jpg" alt="Glioma Tumor" width="100"/><br/>
+            <img src="Preview_Images/glioma_tumor_train_007.jpg" alt="Glioma Tumor" width="100"/><br/>
             <sub><b>Prediction:</b> Glioma Tumor</sub>
         </td>
         <td align="center">
-            <img src="Sample Preview Images/meningioma_tumor(train)_091.jpg" alt="Meningioma Tumor" width="100"/><br/>
+            <img src="Preview_Images/meningioma_tumor_train_091.jpg" alt="Meningioma Tumor" width="100"/><br/>
             <sub><b>Prediction:</b> Meningioma Tumor</sub>
         </td>
         <td align="center">
-            <img src="Sample Preview Images/no_tumor(train)_040.jpg" alt="No Tumor" width="100"/><br/>
+            <img src="Preview_Images/no_tumor_train_040.jpg" alt="No Tumor" width="100"/><br/>
             <sub><b>Prediction:</b> No Tumor</sub>
         </td>
         <td align="center">
-            <img src="Sample Preview Images/pituitary_tumor(train)_210.jpg" alt="Pituitary Tumor" width="100"/><br/>
+            <img src="Preview_Images/pituitary_tumor_train_210.jpg" alt="Pituitary Tumor" width="100"/><br/>
             <sub><b>Prediction:</b> Pituitary Tumor</sub>
         </td>
     </tr>
