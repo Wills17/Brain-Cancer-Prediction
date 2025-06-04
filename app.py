@@ -35,11 +35,6 @@ def home():
     return render_template('home.html')
 
 
-# About page
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
 
 # Predict page
 @app.route('/predict', methods=['GET', 'POST'])
@@ -121,6 +116,13 @@ def predict():
             return jsonify({"error": "Invalid file type. Please upload a PNG or JPEG image."}), 400
     else:
         return render_template('predict.html')
+
+
+
+# About page
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 
 # Results page 
