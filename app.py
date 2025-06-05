@@ -4,23 +4,29 @@ import os
 import cv2 as cv
 from PIL import Image
 import numpy as np
+import random
+import time
+from flask import send_from_directory
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from werkzeug.utils import secure_filename
 from tensorflow.keras.models import load_model
 import warnings
 warnings.filterwarnings("ignore")
 
-
+# Set upload folder
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
+# Set random sample image folder
+Preview_folder = "static/Preview_Images"
 
 # Load model
 model = load_model("Models/Brain_cancer_model.h5")
 
 # Initialize Flask application
 app = Flask(__name__, static_folder='static', template_folder='templates')
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # Ensure upload folder exists
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
@@ -29,11 +35,20 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
+# Set random selection route
+@app.route('/random_image')
+def random_image():
+    images = os.listdir(Preview_folder)
+    image = random.choice(images)
+    time.sleep(1)
+    print("\n", image, "\n")
+    return send_from_directory(Preview_folder, image)
+
+
 # Home page
 @app.route('/')
 def home():
     return render_template('home.html')
-
 
 
 # Predict page
@@ -88,18 +103,19 @@ def predict():
                 if pred_class != 1:
                     description = (
                         f"Our analysis suggests the presence of a {prediction.lower()} in the brain scan. "
-                        "We recommend consulting a medical professional for a comprehensive diagnosis and further guidance.")
+                        )
                     
                     if pred_class == 0:
-                            description  += " Glioma tumors are a type of tumor that occurs in the brain and spinal cord. "
+                            description  += " Glioma tumors are a type of tumor that occurs in the brain and spinal cord. We recommend consulting a medical professional for a comprehensive diagnosis and further guidance."
                     elif pred_class == 2:
-                            description  += " Meningioma tumors are typically benign tumors that arise from the meninges, the protective membranes covering the brain and spinal cord. "
+                            description  += " Meningioma tumors are typically benign tumors that arise from the meninges, the protective membranes covering the brain and spinal cord. We recommend consulting a medical professional for a comprehensive diagnosis and further guidance."
                     elif pred_class == 3:
-                            description  += " Pituitary tumors are abnormal growths that develop in the pituitary gland, a small gland located at the base of the brain. "
+                            description  += " Pituitary tumors are abnormal growths that develop in the pituitary gland, a small gland located at the base of the brain. We recommend consulting a medical professional for a comprehensive diagnosis and further guidance."
                 
                 else:
                     description = "No tumor was detected in the brain scan."
                     description  += " The brain scan appears to be normal, with no signs of tumors detected."
+                    description += " Regardless, we still recommend consulting a medical professional for a comprehensive diagnosis and further guidance."
                     
                 result = {
                     "prediction": prediction,
