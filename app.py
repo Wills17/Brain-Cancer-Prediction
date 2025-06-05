@@ -22,6 +22,7 @@ Preview_folder = "static/Preview_Images"
 
 # Load model
 model = load_model("Models/Brain_cancer_model.h5")
+print("Model loaded and running!")
 
 # Initialize Flask application
 app = Flask(__name__, static_folder='static', template_folder='templates')
