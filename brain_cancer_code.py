@@ -29,12 +29,12 @@ for folder in folders:
         img = cv.imread(train_path + "/" + x)
         
         # Display image
-        # cv.imshow(f"Original Image {j}", img)
+        # cv.imshow(f"Original Image {x}", img)
         # cv.waitKey(1000)
         
         # Resize and display resized
         img = cv.resize(img, (150, 150))
-        # cv.imshow(f"Resized Image {j}", img)
+        # cv.imshow(f"Resized Image {x}", img)
         # cv.waitKey(1000)
         # cv.destroyAllWindows()
         
@@ -52,12 +52,12 @@ for folder in folders:
         img = cv.imread(train_path + "/" + y)
         
         # Display image
-        # cv.imshow(f"Original Image {j}", img)
+        # cv.imshow(f"Original Image {x}", img)
         # cv.waitKey(1000)
         
         # Resize and display resized
         img = cv.resize(img, (150, 150))
-        # cv.imshow(f"Resized Image {j}", img)
+        # cv.imshow(f"Resized Image {x}", img)
         # cv.waitKey(1000)
         # cv.destroyAllWindows()
         
@@ -96,7 +96,7 @@ print("Shape of X_test:", X_test.shape)
 print("Shape of y_test:", y_test.shape)
 
 
-# Convert y_train into categorical (numerical) value
+# Convert y_train into a categorical (numerical) value
 new_y_train = []
 for folder in y_train:
     new_y_train.append(folders.index(folder))
@@ -113,7 +113,7 @@ y_test = tf.keras.utils.to_categorical(y_test)
 # print("y_test:", y_test)
 
 
-# Initialize EfficientNetB0 model with pre-trained ImageNet weights, excluding the top classification layer, 
+# Initialise EfficientNetB0 model with pre-trained ImageNet weights, excluding the top classification layer, 
 # and sets the input shape to (150, 150, 3). 
 # Leverage transfer learning for feature extraction dataset.
 effnet = EfficientNetB0(weights="imagenet",include_top=False,input_shape=(150,150,3))
