@@ -141,4 +141,4 @@ opencv-python-headless
 ## Author
 
 **Odunayo Williams**    
-Portfolio: [@Wills17](wills17.github.io/portfolio)
+Portfolio: [Wills17](wills17.github.io/portfolio)
