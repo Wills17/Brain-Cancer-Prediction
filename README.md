@@ -12,7 +12,7 @@ It includes a trained model, prediction scripts, and a responsive **Flask web ap
 
 ---
 
-## 📸 Sample Input
+## Sample Input
 <table>
     <tr>
         <th>Glioma Tumor</th>
