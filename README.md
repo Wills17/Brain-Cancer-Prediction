@@ -132,13 +132,13 @@ opencv-python-headless
 
 ---
 
-## ⚠ Disclaimer
+## Disclaimer
 
 > This is a research-based prototype. It is not a replacement for professional medical diagnosis. Always consult a medical professional for health-related decisions.
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Odunayo Williams**    
 Portfolio: [@Wills17](wills17.github.io/portfolio)
