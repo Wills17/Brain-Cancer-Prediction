@@ -1,5 +1,5 @@
 
-# 🧠 Brain Cancer Prediction with Deep Learning
+# Brain Cancer Prediction with Deep Learning
 
 A deep learning-based project that uses MRI images to classify brain scans into one of four categories:
 - **Glioma Tumor**
@@ -42,7 +42,7 @@ It includes a trained model, prediction scripts, and a responsive **Flask web ap
 
 ---
 
-## 🗂 Project Structure
+## Project Structure
 
 ```
 Brain-Cancer-Prediction/
@@ -64,7 +64,7 @@ Brain-Cancer-Prediction/
 
 ---
 
-## 🚀 Demo (Live on Render)
+## Demo (Live on Render)
 
 > 🔗 [Live App](https://brain-cancer-prediction-td8j.onrender.com/) 
 
@@ -72,7 +72,7 @@ Upload a brain MRI image and receive a class prediction with a medical-style exp
 
 ---
 
-## 📊 Dataset
+## Dataset
 
 The dataset is structured as follows:
 
@@ -88,7 +88,7 @@ MRI scans are sorted into 4 classes in each folder except the `Predict` folder.
 
 ---
 
-## 🧠 Model Architecture
+## Model Architecture
 
 - Base Model: `EfficientNetB0`
 - Input Shape: `150x150x3`
@@ -97,7 +97,7 @@ MRI scans are sorted into 4 classes in each folder except the `Predict` folder.
 
 ---
 
-## 🔧 Installation (Local)
+## Installation (Local)
 
 ```bash
 git clone https://github.com/Wills17/Brain-Cancer-Prediction.git
@@ -110,7 +110,7 @@ Then open: [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 ---
 
-## 📦 Requirements
+## Requirements
 
 ```
 flask
@@ -122,7 +122,7 @@ opencv-python-headless
 
 ---
 
-## ✅ Features
+## Features
 
 - Drag & drop image uploads
 - Instant AI predictions
@@ -141,4 +141,4 @@ opencv-python-headless
 ## 👨‍💻 Author
 
 **Odunayo Williams**    
-GitHub: [@Wills17](https://github.com/Wills17)
+Portfolio: [@Wills17](wills17.github.io/portfolio)
